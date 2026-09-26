@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 import logo from "./assets/logo.png";
@@ -10,6 +10,17 @@ import coordSetImage from "./assets/coord-set.png";
 import coatImage from "./assets/coat.png";
 import ethnicWearImage from "./assets/ethnic-wear.png";
 import dressImage from "./assets/dress.png";
+import kid1 from "./assets/kids/1.png";
+import kid2 from "./assets/kids/2.png";
+import kid3 from "./assets/kids/3.png";
+import kid4 from "./assets/kids/4.png";
+import kid5 from "./assets/kids/5.png";
+import kid6 from "./assets/kids/6.png";
+import kid7 from "./assets/kids/7.png";
+import kid8 from "./assets/kids/8.png";
+import kid9 from "./assets/kids/9.png";
+import kid10 from "./assets/kids/10.png";
+import kid11 from "./assets/kids/11.png";
 
 const fallbackCollections = [
   {
@@ -68,6 +79,107 @@ function App() {
 
   const [loadingCollections, setLoadingCollections] = useState(true);
 
+
+  const littleLuxeImages = [
+    kid1,
+    kid2,
+    kid3,
+    kid4,
+    kid5,
+    kid6,
+    kid7,
+    kid8,
+    kid9,
+    kid10,
+    kid11,
+  ];
+
+  const littleLuxeWindowRef = useRef(null);
+  const [littleLuxeIndex, setLittleLuxeIndex] = useState(11);
+  const [littleLuxeStep, setLittleLuxeStep] = useState(0);
+  const [littleLuxeDragOffset, setLittleLuxeDragOffset] = useState(0);
+  const [littleLuxeDragging, setLittleLuxeDragging] = useState(false);
+  const [littleLuxeInstant, setLittleLuxeInstant] = useState(false);
+  const littleLuxeDragStart = useRef(0);
+
+  const littleLuxeLoopImages = [
+    ...littleLuxeImages,
+    ...littleLuxeImages,
+    ...littleLuxeImages,
+  ];
+
+  useEffect(() => {
+    const updateLittleLuxeStep = () => {
+      const windowElement = littleLuxeWindowRef.current;
+      const firstItem = windowElement?.querySelector(".little-luxe-item");
+
+      if (!windowElement || !firstItem) return;
+
+      const itemWidth = firstItem.getBoundingClientRect().width;
+      const styles = window.getComputedStyle(firstItem.parentElement);
+      const gap = parseFloat(styles.columnGap || styles.gap || "0");
+
+      setLittleLuxeStep(itemWidth + gap);
+    };
+
+    updateLittleLuxeStep();
+    window.addEventListener("resize", updateLittleLuxeStep);
+
+    return () => {
+      window.removeEventListener("resize", updateLittleLuxeStep);
+    };
+  }, []);
+
+  const nextLittleLuxe = () => {
+    setLittleLuxeIndex((prev) => prev + 1);
+  };
+
+  const prevLittleLuxe = () => {
+    setLittleLuxeIndex((prev) => prev - 1);
+  };
+
+  const handleLittleLuxePointerDown = (event) => {
+    setLittleLuxeDragging(true);
+    littleLuxeDragStart.current = event.clientX;
+    setLittleLuxeDragOffset(0);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const handleLittleLuxePointerMove = (event) => {
+    if (!littleLuxeDragging) return;
+
+    setLittleLuxeDragOffset(
+      event.clientX - littleLuxeDragStart.current
+    );
+  };
+
+  const handleLittleLuxePointerUp = () => {
+    if (!littleLuxeDragging) return;
+
+    const threshold = Math.max(littleLuxeStep * 0.2, 45);
+
+    if (littleLuxeDragOffset < -threshold) {
+      nextLittleLuxe();
+    } else if (littleLuxeDragOffset > threshold) {
+      prevLittleLuxe();
+    }
+
+    setLittleLuxeDragging(false);
+    setLittleLuxeDragOffset(0);
+  };
+
+  const handleLittleLuxeTransitionEnd = () => {
+    if (littleLuxeIndex >= 22 || littleLuxeIndex <= 0) {
+      setLittleLuxeInstant(true);
+      setLittleLuxeIndex(11);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setLittleLuxeInstant(false);
+        });
+      });
+    }
+  };
 
   /* =========================
      HERO SLIDER
@@ -180,20 +292,24 @@ function App() {
             </a>
 
             <a
-              href="#visit"
+              href="https://wa.me/917206111614"
+              target="_blank"
+              rel="noreferrer"
               className="mobile-cta"
               onClick={closeMenu}
             >
-              Book Appointment
+              CONTACT US
             </a>
           </div>
 
 
           <a
-            href="#visit"
+            href="https://wa.me/917206111614"
+            target="_blank"
+            rel="noreferrer"
             className="nav-cta desktop-cta"
           >
-            Book Appointment
+            CONTACT US
           </a>
 
 
@@ -278,7 +394,7 @@ function App() {
             <div className="btn-row">
 
               <a
-                href="https://www.instagram.com/"
+                href="https://www.instagram.com/creations_pearl/"
                 target="_blank"
                 rel="noreferrer"
                 className="btn light-solid"
@@ -477,6 +593,88 @@ function App() {
         </section>
 
 
+
+        <section className="section little-luxe" id="little-luxe">
+          <div className="section-head">
+            <p className="eyebrow">FOR OUR LITTLE ONES</p>
+
+            <h2>Little Luxe</h2>
+
+            <div className="divider"></div>
+          </div>
+
+          <div className="little-luxe-carousel">
+            <button
+              className="little-luxe-arrow"
+              onClick={prevLittleLuxe}
+              aria-label="Previous children's outfit"
+            >
+              <span>‹</span>
+            </button>
+
+            <div
+              className={`little-luxe-window ${
+                littleLuxeDragging ? "dragging" : ""
+              }`}
+              ref={littleLuxeWindowRef}
+              onPointerDown={handleLittleLuxePointerDown}
+              onPointerMove={handleLittleLuxePointerMove}
+              onPointerUp={handleLittleLuxePointerUp}
+              onPointerCancel={handleLittleLuxePointerUp}
+              style={{
+                cursor: "default",
+              }}
+            >
+              <div
+                className="little-luxe-track"
+                onTransitionEnd={handleLittleLuxeTransitionEnd}
+                style={{
+                  transform: `translate3d(${
+                    -(littleLuxeIndex * littleLuxeStep) + littleLuxeDragOffset
+                  }px, 0, 0)`,
+                  transition:
+                    littleLuxeDragging || littleLuxeInstant
+                      ? "none"
+                      : "transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1)",
+                }}
+              >
+                {littleLuxeLoopImages.map((image, index) => (
+                  <div className="little-luxe-item" key={index}>
+                    <img
+                      src={image}
+                      alt={`Little Luxe children's outfit ${(index % 11) + 1}`}
+                      draggable="false"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              className="little-luxe-arrow"
+              onClick={nextLittleLuxe}
+              aria-label="Next children's outfit"
+            >
+              <span>›</span>
+            </button>
+          </div>
+
+          <div className="little-luxe-dots">
+            {littleLuxeImages.map((_, index) => (
+              <button
+                key={index}
+                className={
+                  index === (littleLuxeIndex - 11 + 11) % 11
+                    ? "active"
+                    : ""
+                }
+                onClick={() => setLittleLuxeIndex(11 + index)}
+                aria-label={`Show outfit ${index + 1}`}
+              />
+            ))}
+          </div>
+        </section>
+
         {/* =========================
             QUOTE
         ========================= */}
@@ -635,8 +833,8 @@ function App() {
                     </h4>
 
                     <p>
-                      <a href="mailto:hello@pearlcreations.in">
-                        hello@pearlcreations.in
+                      <a href="mailto:anupamabudhiraja22@gmail.com">
+                        anupamabudhiraja22@gmail.com
                       </a>
                     </p>
 
@@ -646,29 +844,31 @@ function App() {
 
 
                 <a
-                  href="mailto:hello@pearlcreations.in"
+                  href="https://wa.me/917206111614"
+                  target="_blank"
+                  rel="noreferrer"
                   className="btn btn-solid"
                 >
-                  Book an Appointment
+                  CONTACT US
                 </a>
 
               </div>
 
 
               <div className="map-visual">
-
-                <div className="map-pin">
-
-                  <span className="map-pin-icon">
-                    📍
-                  </span>
-
-                  <span>
-                    PEARL CREATIONS
-                  </span>
-
-                </div>
-
+                <iframe
+                  title="Pearl Creations Location"
+                  src="https://www.google.com/maps?q=Jagadhari+Gate,+Ambala+City,+Haryana,+India&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{
+                    border: 0,
+                    display: "block",
+                  }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
 
             </div>
@@ -742,7 +942,7 @@ function App() {
               Appointment
             </a>
 
-            <a href="mailto:hello@pearlcreations.in">
+            <a href="mailto:anupamabudhiraja22@gmail.com">
               Contact
             </a>
 
@@ -756,7 +956,7 @@ function App() {
             </h4>
 
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/creations_pearl/"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"

@@ -972,6 +972,265 @@ nav {
   color: var(--ink-soft);
 }
 
+/*Little Lux*/
+
+.little-luxe {
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.little-luxe-head {
+  max-width: 1180px;
+  margin: 0 auto 34px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.little-luxe-head h2 {
+  margin-bottom: 0;
+}
+
+.little-luxe-view-all {
+  border: 1px solid var(--rose-deep);
+  background: transparent;
+  color: var(--rose-deep);
+  padding: 11px 24px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.little-luxe-view-all:hover {
+  background: var(--rose-deep);
+  color: #fff;
+}
+
+.little-luxe-carousel {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.little-luxe-window {
+  flex: 1;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.little-luxe-window.dragging {
+  cursor: grabbing;
+}
+
+.little-luxe-track {
+  display: flex;
+  gap: 18px;
+  will-change: transform;
+}
+
+.little-luxe-item {
+  flex: 0 0 calc((100% - 54px) / 4);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #f8eee9;
+}
+
+.little-luxe-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.5s ease;
+}
+
+.little-luxe-item:hover img {
+  transform: scale(1.035);
+}
+
+/* Elegant navigation buttons */
+
+.little-luxe-arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(120, 75, 82, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--rose-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.little-luxe-arrow span {
+  font-family: Georgia, serif;
+  font-size: 1.7rem;
+  line-height: 1;
+  font-weight: 300;
+  transform: translateY(-1px);
+}
+
+.little-luxe-arrow:hover {
+  background: var(--rose-deep);
+  color: #fff;
+  border-color: var(--rose-deep);
+  transform: scale(1.05);
+}
+
+.little-luxe-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-top: 24px;
+}
+
+.little-luxe-dots button {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #cdbfc0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.little-luxe-dots button.active {
+  width: 18px;
+  border-radius: 10px;
+  background: var(--rose-deep);
+}
+
+@media (max-width: 900px) {
+  .little-luxe-track {
+    gap: 14px;
+  }
+
+  .little-luxe-item {
+    flex-basis: calc((100% - 28px) / 3);
+  }
+}
+
+@media (max-width: 680px) {
+  .little-luxe-carousel {
+    gap: 8px;
+  }
+
+  .little-luxe-track {
+    gap: 12px;
+  }
+
+  .little-luxe-item {
+    flex-basis: calc((100% - 12px) / 2);
+  }
+
+  .little-luxe-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .little-luxe-arrow span {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .little-luxe-head {
+    margin-bottom: 24px;
+  }
+
+  .little-luxe-head h2 {
+    font-size: 1.8rem;
+  }
+
+  .little-luxe-view-all {
+    padding: 9px 16px;
+    font-size: 0.68rem;
+  }
+
+  .little-luxe-item {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .little-luxe-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .little-luxe-item:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .little-luxe-head {
+    align-items: center;
+  }
+
+  .little-luxe-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .little-luxe-item:nth-child(3),
+  .little-luxe-item:nth-child(4) {
+    display: none;
+  }
+
+  .little-luxe-carousel {
+    gap: 8px;
+  }
+
+  .little-luxe-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .little-luxe-head {
+    margin-bottom: 24px;
+  }
+
+  .little-luxe-head h2 {
+    font-size: 1.8rem;
+  }
+
+  .little-luxe-view-all {
+    padding: 9px 16px;
+    font-size: 0.68rem;
+  }
+
+  .little-luxe-track {
+    grid-template-columns: 1fr;
+  }
+
+  .little-luxe-item:nth-child(2),
+  .little-luxe-item:nth-child(3),
+  .little-luxe-item:nth-child(4) {
+    display: none;
+  }
+}
+
 
 /* =========================
    FOOTER
