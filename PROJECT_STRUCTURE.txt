@@ -1,0 +1,24 @@
+client/
+  src/
+    assets/
+      logo.png
+      hero-original.png
+      hero-clean.png
+      hero-bg.jpg
+    App.jsx
+    main.jsx
+    styles.css
+  index.html
+  package.json
+
+server/
+  models/
+    Collection.js
+  routes/
+    collections.js
+  server.js
+  .env.example
+  package.json
+
+README.md
+.gitignore
