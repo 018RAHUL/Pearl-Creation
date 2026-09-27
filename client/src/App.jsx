@@ -9,17 +9,17 @@ import coordSetImage from "./assets/coord-set.png";
 import coatImage from "./assets/coat.png";
 import ethnicWearImage from "./assets/ethnic-wear.png";
 import dressImage from "./assets/dress.png";
-import kid1 from "./assets/kids/1.png";
-import kid2 from "./assets/kids/2.png";
-import kid3 from "./assets/kids/3.png";
-import kid4 from "./assets/kids/4.png";
-import kid5 from "./assets/kids/5.png";
-import kid6 from "./assets/kids/6.png";
-import kid7 from "./assets/kids/7.png";
-import kid8 from "./assets/kids/8.png";
-import kid9 from "./assets/kids/9.png";
-import kid10 from "./assets/kids/10.png";
-import kid11 from "./assets/kids/11.png";
+import kid1 from "./assets/Kids/1.png";
+import kid2 from "./assets/Kids/2.png";
+import kid3 from "./assets/Kids/3.png";
+import kid4 from "./assets/Kids/4.png";
+import kid5 from "./assets/Kids/5.png";
+import kid6 from "./assets/Kids/6.png";
+import kid7 from "./assets/Kids/7.png";
+import kid8 from "./assets/Kids/8.png";
+import kid9 from "./assets/Kids/9.png";
+import kid10 from "./assets/Kids/10.png";
+import kid11 from "./assets/Kids/11.png";
 
 const fallbackCollections = [
   {
