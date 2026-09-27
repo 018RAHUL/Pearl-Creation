@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 
 import logo from "./assets/logo.png";
 import heroCover from "./assets/hero-cover.png";
@@ -73,11 +72,7 @@ function App() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [collections, setCollections] = useState(
-    fallbackCollections
-  );
-
-  const [loadingCollections, setLoadingCollections] = useState(true);
+  const collections = fallbackCollections;
 
 
   const littleLuxeImages = [
@@ -191,37 +186,6 @@ function App() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
-
-
-  /* =========================
-     COLLECTIONS API
-  ========================= */
-
-  useEffect(() => {
-    const fetchCollections = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/collections"
-        );
-
-        if (
-          response.data &&
-          Array.isArray(response.data.collections) &&
-          response.data.collections.length > 0
-        ) {
-          setCollections(response.data.collections);
-        }
-      } catch (error) {
-        console.log(
-          "Using fallback collection data. Backend is not connected."
-        );
-      } finally {
-        setLoadingCollections(false);
-      }
-    };
-
-    fetchCollections();
   }, []);
 
 
@@ -553,40 +517,14 @@ function App() {
             </div>
 
 
-            {loadingCollections ? (
-              <div className="grid">
-
-                {fallbackCollections.map(
-                  (collection) => (
-                    <CollectionCard
-                      key={collection.title}
-                      collection={collection}
-                    />
-                  )
-                )}
-
-              </div>
-            ) : (
-
-              <div className="grid">
-
-                {collections.map(
-                  (collection, index) => (
-                    <CollectionCard
-                      key={
-                        collection._id ||
-                        collection.id ||
-                        collection.title ||
-                        index
-                      }
-                      collection={collection}
-                    />
-                  )
-                )}
-
-              </div>
-
-            )}
+            <div className="grid">
+              {collections.map((collection) => (
+                <CollectionCard
+                  key={collection.title}
+                  collection={collection}
+                />
+              ))}
+            </div>
 
           </div>
 
